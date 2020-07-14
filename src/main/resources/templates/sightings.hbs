@@ -1,0 +1,24 @@
+{{#partial "content"}}
+
+    <h1>Sightings!</h1>
+
+    <p>Add New Sighting:</p>
+
+    <form action="/sightings/new" class="sighting-form" method="POST">
+        <div class="form-group">
+            <label for="sighted">Animal Sighted</label>
+            <input id="sighted" name="sighted" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+            <label for="location">Location Sighted</label>
+            <input id="location" name="location" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+            <label for="rangerName">Ranger Name</label>
+            <input id="rangerName" name="rangerName" class="form-control" type="text">
+        </div>
+        <button type="submit" class="btn btn-default">Add Sighting</button>
+    </form>
+{{/partial}}
+
+{{> layout.hbs}}

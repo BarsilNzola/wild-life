@@ -1,18 +1,16 @@
+package models;
+
 import org.sql2o.*;
 import java.util.List;
-import java.util.Objects;
-import java.util.ArrayList;
 
 public class Sighting {
     private String location;
     private String rangerName;
-    private int animalId;
     private int id;
 
-    public Sighting(String location, String rangerName, int animalId) {
+    public Sighting(String location, String rangerName) {
         this.location = location;
         this.rangerName = rangerName;
-        this.animalId = animalId;
     }
 
     public String getLocation() {
@@ -21,10 +19,6 @@ public class Sighting {
 
     public String getRangerName() {
         return rangerName;
-    }
-
-    public int getAnimalId() {
-        return animalId;
     }
 
     public int getId() {
@@ -36,18 +30,16 @@ public class Sighting {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Sighting sighting = (Sighting) o;
-        return animalId == sighting.animalId &&
-                location.equals(sighting.location) &&
+        return location.equals(sighting.location) &&
                 rangerName.equals(sighting.rangerName);
     }
 
     public void save() {
         try(Connection con = DB.sql2o.open()) {
-            String sql = "INSERT INTO sightings (location, rangerName, animalId) VALUES (:location, :rangerName, :animalId)";
+            String sql = "INSERT INTO sightings (location, rangerName) VALUES (:location, :rangerName)";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("location", this.location)
                     .addParameter("rangerName", this.rangerName)
-                    .addParameter("animalId", this.animalId)
                     .executeUpdate()
                     .getKey();
         }
@@ -67,6 +59,15 @@ public class Sighting {
                     .addParameter("id", id)
                     .executeAndFetchFirst(Sighting.class);
             return sighting;
+        }
+    }
+
+    public List<Animal> getAnimals() {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM animals where sightingId=:id";
+            return con.createQuery(sql)
+                    .addParameter("id", this.id)
+                    .executeAndFetch(Animal.class);
         }
     }
 }
