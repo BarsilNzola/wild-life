@@ -4,7 +4,7 @@ import org.sql2o.*;
 
 import java.util.List;
 
-public class Animal {
+public class Animal implements DatabaseManagement{
     private String name;
     private String nickname;
     private String species;
@@ -52,6 +52,7 @@ public class Animal {
     }
 
 
+    @Override
     public void save() {
         try(Connection con = DB.sql2o.open()) {
             String sql = "INSERT INTO animals (name, nickname, species, sightingId) VALUES (:name, :nickname, :species, :sightingId)";

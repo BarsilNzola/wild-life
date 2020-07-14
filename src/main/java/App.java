@@ -3,7 +3,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+import models.Animal;
 import models.Sighting;
+import models.DatabaseManagement;
 import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -23,6 +25,15 @@ public class App {
             List<Sighting> sightings = Sighting.all();
             model.put("sightings", sightings);
             return new ModelAndView(model, "sightings.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/sightings", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            String location = request.queryParams("location");
+            String rangerName = request.queryParams("rangerName");
+            Sighting newSighting = new Sighting(location, rangerName);
+            model.put("sightings", Sighting.all());
+            return new ModelAndView(model, "listed-sighting.hbs");
         }, new HandlebarsTemplateEngine());
     }
 }

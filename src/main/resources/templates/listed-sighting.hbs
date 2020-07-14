@@ -1,0 +1,14 @@
+{{#partial "content"}}
+    {{#if sightings}}
+        {{#each sightings}}
+            <div class="card">
+                {{location}}
+                {{rangerName}}
+            </div>
+        {{/each}}
+    {{else}}
+    <p>No Sightings yet!!</p>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}
