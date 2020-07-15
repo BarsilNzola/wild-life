@@ -33,8 +33,8 @@ public class App {
             String location = request.queryParams("location");
             String rangerName = request.queryParams("rangerName");
             Sighting newSighting = new Sighting(animalId, location, rangerName);
-            model.put("sightings", Sighting.all());
-            return new ModelAndView(model, "listed-sighting.hbs");
+            response.redirect("/sightings");
+            return null;
         }, new HandlebarsTemplateEngine());
     }
 }
