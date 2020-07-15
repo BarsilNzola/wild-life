@@ -4,18 +4,17 @@ import org.sql2o.*;
 
 import java.util.List;
 
-public class Animal implements DatabaseManagement{
-    private String name;
-    private String nickname;
-    private String species;
-    private int sightingId;
-    private int id;
+public class Animal {
+    public String name;
+    public String nickname;
+    public String species;
+    public String type;
+    public int id;
 
-    public Animal (String name, String nickname, String species, int sightingId) {
+    public Animal (String name, String nickname, String species) {
         this.name = name;
         this.nickname = nickname;
         this.species = species;
-        this.sightingId = sightingId;
     }
 
     public String getName() {
@@ -30,10 +29,6 @@ public class Animal implements DatabaseManagement{
         return nickname;
     }
 
-    public int getSightingId() {
-        return sightingId;
-    }
-
     public int getId() {
         return id;
     }
@@ -46,30 +41,30 @@ public class Animal implements DatabaseManagement{
             Animal newAnimal = (Animal) otherAnimal;
             return  this.getName().equals(newAnimal.getName()) &&
                     this.getNickname().equals(newAnimal.getNickname()) &&
-                    this.getSpecies().equals(newAnimal.getSpecies()) &&
-                    this.getSightingId() == newAnimal.getSightingId();
+                    this.getSpecies().equals(newAnimal.getSpecies());
         }
     }
 
 
-    @Override
     public void save() {
         try(Connection con = DB.sql2o.open()) {
-            String sql = "INSERT INTO animals (name, nickname, species, sightingId) VALUES (:name, :nickname, :species, :sightingId)";
+            String sql = "INSERT INTO animals (name, nickname, species, type) VALUES (:name, :nickname, :species, :type)";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("name", this.name)
                     .addParameter("nickname", this.nickname)
                     .addParameter("species", this.species)
-                    .addParameter("sightingId", this.sightingId)
+                    .addParameter("type", this.type)
                     .executeUpdate()
                     .getKey();
         }
     }
 
-    public static List<Animal> all() {
+    public static List<EndangeredAnimal> all() {
         String sql = "SELECT * FROM animals";
-        try(Connection con = DB.sql2o.open()) {
-            return con.createQuery(sql).executeAndFetch(Animal.class);
+        try (Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(EndangeredAnimal.class);
         }
     }
 
@@ -80,6 +75,15 @@ public class Animal implements DatabaseManagement{
                    .addParameter("id", id)
                    .executeAndFetchFirst(Animal.class);
            return animal;
+        }
+    }
+
+    public List<Sighting> getSightings() {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM sightings where animalId=:id";
+            return con.createQuery(sql)
+                    .addParameter("id", this.id)
+                    .executeAndFetch(Sighting.class);
         }
     }
 }

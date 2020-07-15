@@ -29,9 +29,10 @@ public class App {
 
         post("/sightings", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
+            int animalId = Integer.parseInt(request.queryParams("animalId"));
             String location = request.queryParams("location");
             String rangerName = request.queryParams("rangerName");
-            Sighting newSighting = new Sighting(location, rangerName);
+            Sighting newSighting = new Sighting(animalId, location, rangerName);
             model.put("sightings", Sighting.all());
             return new ModelAndView(model, "listed-sighting.hbs");
         }, new HandlebarsTemplateEngine());
