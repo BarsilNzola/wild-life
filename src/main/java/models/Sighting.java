@@ -3,7 +3,7 @@ package models;
 import org.sql2o.*;
 import java.util.List;
 
-public class Sighting {
+public class Sighting implements DatabaseManagement{
     private int animalId;
     private String location;
     private String rangerName;
@@ -42,6 +42,7 @@ public class Sighting {
         }
     }
 
+    @Override
     public void save() {
         try(Connection con = DB.sql2o.open()) {
             String sql = "INSERT INTO sightings (animalId, location, rangerName) VALUES (:animalId, :location, :rangerName);";
