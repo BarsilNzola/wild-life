@@ -1,24 +1,83 @@
 {{#partial "content"}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1>Sightings!</h1>
 
-    <h1>Sightings!</h1>
-
-    <p>Add New Sighting:</p>
-
-    <form action="/sightings" class="sighting-form" method="POST">
-        <div class="form-group">
-            <label for="sighted">Animal Sighted</label>
-            <input id="sighted" name="sighted" class="form-control" type="text">
+                <p>Add New Sighting:</p>
+                <nav>
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                               aria-selected="true">Endangered</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                               aria-selected="false">Animal</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card col-md-4 mt-4">
+                            <form action="/sightings" class="sighting-form" method="POST">
+                                <div class="form-group">
+                                    <label for="sighted">Animal Sighted</label>
+                                    <input id="sighted" name="sighted" class="form-control" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Location Sighted</label>
+                                    <input id="location" name="location" class="form-control" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rangerName">Ranger Name</label>
+                                    <input id="rangerName" name="rangerName" class="form-control" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="health">Health</label>
+                                    <select name="health" id="health" class="form-control">
+                                        <option label="-Endangered Animal Health -"></option>
+                                        <option value="{{healthy}}">Healthy</option>
+                                        <option value="{{ill}}">Ill</option>
+                                        <option value="{{okay}}">Okay</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <select name="age" id="age" class="form-control">
+                                        <option label="-Endangered Animal Age -"></option>
+                                        <option value="{{newborn}}">Newborn</option>
+                                        <option value="{{young}}">Young</option>
+                                        <option value="{{adult}}">Adult</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default">Add Sighting</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card col-md-4 mt-4">
+                            <form action="/sightings" class="sighting-form" method="POST">
+                                <div class="form-group">
+                                    <label for="sighted">Animal Sighted</label>
+                                    <input id="sighted" name="sighted" class="form-control" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Location Sighted</label>
+                                    <input id="location" name="location" class="form-control" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rangerName">Ranger Name</label>
+                                    <input id="rangerName" name="rangerName" class="form-control" type="text">
+                                </div>
+                                <button type="submit" class="btn btn-default">Add Sighting</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="location">Location Sighted</label>
-            <input id="location" name="location" class="form-control" type="text">
-        </div>
-        <div class="form-group">
-            <label for="rangerName">Ranger Name</label>
-            <input id="rangerName" name="rangerName" class="form-control" type="text">
-        </div>
-        <button type="submit" class="btn btn-default">Add Sighting</button>
-    </form>
+    </div>
 {{/partial}}
 
 {{> layout.hbs}}

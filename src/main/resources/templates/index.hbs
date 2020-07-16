@@ -1,13 +1,33 @@
 {{#partial "content"}}
     <div class="container-fluid" id="landing-page">
-        <div class="topnav navbar-expand-sm fixed-top navbar-light">
-            <a href="/sightings">SIGHTINGS</a>
-            <a href="/rangers">RANGERS</a>
-        </div>
         <div class="row">
             <div class="col">
                 <h1>WILDLIFE TRACKER</h1>
                 <button class="started"><a href="/sightings/new">GET STARTED</a></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{#if rangers}}
+                    {{#each rangers}}
+                        <div class="card">
+                            <h1>Name:{{name}}</h1>
+                            <p>Phone Number:{{number}}</p>
+                            <p>Badge Number:{{badgeNumber}}</p>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <p>No Rangers Added!!</p>
+                {{/if}}
+            </div>
+            <div class="col">
+                {{#if sightings}}
+                    {{#each sightings}}
+                        <a href="/sightings/{{id}}">{{location}}</a>
+                    {{/each}}
+                {{else}}
+                    <p>No Sightings yet!!</p>
+                {{/if}}
             </div>
         </div>
     </div>

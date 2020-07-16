@@ -74,3 +74,38 @@
     width: 100%;
     margin: 18px 0 9px 0;
 }
+
+.screen {
+	position: relative;
+	width: 330px;
+	height: 600px;
+	border-radius: 25px;
+	background: indianred;
+}
+
+.screen-title {
+	color: #002771;
+	font-weight: 900;
+	max-width: 80%;
+	margin: 40px;
+	font-size: 35px;
+	line-height: 49px;
+}
+
+.screen-form {
+	width: 85%;
+	margin: 60px auto 0 auto;
+	padding: 25px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 10px 20px rgba(0,0,0,0,19),
+				0 6px 6px rgba(0,0,0,0,23);
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+}
+
